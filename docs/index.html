@@ -328,26 +328,64 @@
         var commentsDiv = document.getElementById("comments");
         
         comments.forEach(function(comment) {
-            var commentElement = document.createElement("p");
-            commentElement.textContent = comment;
+            var commentElement = createCommentElement(comment);
             commentsDiv.appendChild(commentElement);
         });
     }
 
+    // Function to create a comment element
+    function createCommentElement(commentText) {
+        var commentElement = document.createElement("div");
+        commentElement.classList.add("comment");
+
+        var textElement = document.createElement("p");
+        textElement.textContent = commentText;
+        commentElement.appendChild(textElement);
+
+        var deleteButton = document.createElement("button");
+        deleteButton.textContent = "Delete";
+        deleteButton.classList.add("btn", "btn-danger", "btn-sm");
+        deleteButton.addEventListener("click", function() {
+            deleteComment(commentText);
+        });
+        commentElement.appendChild(deleteButton);
+
+        return commentElement;
+    }
+
     // Function to add a comment to the comments list
     function addComment(comment) {
-        var commentElement = document.createElement("p");
-        commentElement.textContent = comment;
-        document.getElementById("comments").appendChild(commentElement);
+        var commentsDiv = document.getElementById("comments");
+        var commentElement = createCommentElement(comment);
+        commentsDiv.appendChild(commentElement);
     }
 
     // Function to save comments to localStorage
     function saveComments() {
         var comments = [];
-        document.querySelectorAll("#comments p").forEach(function(element) {
+        document.querySelectorAll("#comments .comment p").forEach(function(element) {
             comments.push(element.textContent);
         });
         localStorage.setItem("comments", JSON.stringify(comments));
+    }
+
+    // Function to delete a comment
+    function deleteComment(commentText) {
+        var commentsDiv = document.getElementById("comments");
+        var commentElements = commentsDiv.querySelectorAll(".comment p");
+        var comments = [];
+        for (var i = 0; i < commentElements.length; i++) {
+            var text = commentElements[i].textContent;
+            if (text !== commentText) {
+                comments.push(text);
+            }
+        }
+        localStorage.setItem("comments", JSON.stringify(comments));
+        commentsDiv.innerHTML = "";
+        comments.forEach(function(comment) {
+            var commentElement = createCommentElement(comment);
+            commentsDiv.appendChild(commentElement);
+        });
     }
 </script>
       </div>
