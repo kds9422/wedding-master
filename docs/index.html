@@ -287,25 +287,26 @@
             </div>
         </div>
 
-<div class="ww-section bg-light" id="comment">
-    <div class="ww-photo-gallery">
-        <div class="container">
-            <div class="col text-center">
-                <h2 class="h1 text-center pb-3 ww-title" style="font-family: 'Noto Serif KR', serif;">축하메시지</h2><br>
-                <div id="comments"></div>
-                <br>
-                <div class="row">
-                    <div class="col text-center">
-                        <form id="commentForm">
-                            <input type="text" id="commentInput" placeholder="메시지를 입력하세요">
-                            <button class="btn btn-primary btn-submit" type="submit">메시지 남기기</button>
-                        </form>
+    <div class="ww-section bg-light" id="comment">
+        <div class="ww-photo-gallery">
+            <div class="container">
+                <div class="col text-center">
+                    <h2 class="h1 text-center pb-3 ww-title" style="font-family: 'Noto Serif KR', serif;">축하메시지</h2><br>
+                    <div id="comments"></div>
+                    <br>
+                    <div class="row">
+                        <div class="col text-center">
+                            <form id="commentForm" action="/submit-comment" method="POST">
+                                <input type="text" name="comment" id="commentInput" placeholder="메시지를 입력하세요">
+                                <button class="btn btn-primary btn-submit" type="submit">메시지 남기기</button>
+                            </form>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+        
 <script>
     document.getElementById("commentForm").addEventListener("submit", function(event) {
         event.preventDefault(); // Prevent the default form submission
