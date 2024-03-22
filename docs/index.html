@@ -304,37 +304,20 @@
             </div>
         </div>
 
+        <div id="comment-section">
+    <h2>댓글</h2>
+    <form id="comment-form">
+        <textarea id="comment" rows="4" cols="50" placeholder="댓글을 입력하세요..."></textarea><br>
+        <button type="submit">제출</button>
+    </form>
+    <div id="comments-container">
+        <!-- 여기에 댓글이 동적으로 추가됩니다. -->
+    </div>
+</div>
     </div>
 </div>
 </div>
-<div aria-hidden="true" aria-labelledby="exampleModalLabel" class="modal fade" id="giftMailModal" role="dialog"
-     tabindex="-1">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLongTitle">선물하기 - <span id="gift-name"></span></h5>
-                <button aria-label="Close" class="close" data-dismiss="modal" type="button">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <div class="modal-body">
-                <div class="input-group mb-3">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">보내는 분 성함</span>
-                    </div>
-                    <input aria-describedby="basic-addon3" class="form-control" id="sender-name" type="text">
-                </div>
-                <div class="input-group">
-                    <textarea aria-label="With textarea" class="form-control" id="sender-message"
-                              placeholder="신랑, 신부에게 선물 예약과 함께 보낼 메시지를 입력해주세요. 이 메시지는 신랑, 신부에게 발송됩니다." rows=4></textarea>
-                </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary" id="reserveGiftButton" type="button">예약</button>
-            </div>
-        </div>
-    </div>
-</div>
+
 <footer></footer>
 <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
@@ -344,6 +327,35 @@
 <script src="js/ekko-lightbox.min.js"></script>
 <script src="scripts/main.js"></script>
 
+<script>
+    document.getElementById("comment-form").addEventListener("submit", function(event) {
+        event.preventDefault(); // 폼의 기본 동작인 페이지 리로드 방지
+
+        // 입력된 댓글 가져오기
+        var commentInput = document.getElementById("comment");
+        var commentText = commentInput.value.trim();
+
+        // 댓글이 비어있는지 확인
+        if (commentText === "") {
+            alert("댓글을 입력하세요.");
+            return;
+        }
+
+        // 댓글을 추가할 컨테이너 가져오기
+        var commentsContainer = document.getElementById("comments-container");
+
+        // 새로운 댓글 요소 생성
+        var commentElement = document.createElement("div");
+        commentElement.textContent = commentText;
+
+        // 컨테이너에 댓글 요소 추가
+        commentsContainer.appendChild(commentElement);
+
+        // 입력 필드 비우기
+        commentInput.value = "";
+    });
+</script>
+    
 <div class="bottom_right"><i class="fa fa-arrow-up fa-2x" id="go-to-top"></i>
 </div>
 
