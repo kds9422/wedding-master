@@ -303,17 +303,6 @@
                 </div>
             </div>
         </div>
-
-        <div id="comment-section">
-    <h2>댓글</h2>
-    <form id="comment-form">
-        <textarea id="comment" rows="4" cols="50" placeholder="댓글을 입력하세요..."></textarea><br>
-        <button type="submit">제출</button>
-    </form>
-    <div id="comments-container">
-        <!-- 여기에 댓글이 동적으로 추가됩니다. -->
-    </div>
-</div>
     </div>
 </div>
 </div>
@@ -326,35 +315,6 @@
 <script src="js/parallax.min.js"></script>
 <script src="js/ekko-lightbox.min.js"></script>
 <script src="scripts/main.js"></script>
-
-<script>
-    document.getElementById("comment-form").addEventListener("submit", function(event) {
-        event.preventDefault(); // 폼의 기본 동작인 페이지 리로드 방지
-
-        // 입력된 댓글 가져오기
-        var commentInput = document.getElementById("comment");
-        var commentText = commentInput.value.trim();
-
-        // 댓글이 비어있는지 확인
-        if (commentText === "") {
-            alert("댓글을 입력하세요.");
-            return;
-        }
-
-        // 댓글을 추가할 컨테이너 가져오기
-        var commentsContainer = document.getElementById("comments-container");
-
-        // 새로운 댓글 요소 생성
-        var commentElement = document.createElement("div");
-        commentElement.textContent = commentText;
-
-        // 컨테이너에 댓글 요소 추가
-        commentsContainer.appendChild(commentElement);
-
-        // 입력 필드 비우기
-        commentInput.value = "";
-    });
-</script>
     
 <div class="bottom_right"><i class="fa fa-arrow-up fa-2x" id="go-to-top"></i>
 </div>
