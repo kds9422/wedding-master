@@ -15,7 +15,7 @@ app.get('/', (req, res) => {
 app.post('/submit-comment', (req, res) => {
     const comment = req.body.comment;
 
-    fs.appendFile('README.md', '- ' + comment + '\n', (err) => {
+    fs.appendFile('guestbook.tsv', '- ' + comment + '\n', (err) => {
         if (err) throw err;
         console.log('Comment saved: ' + comment);
     });
