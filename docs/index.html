@@ -287,41 +287,72 @@
             </div>
         </div>
 
-    <div class="ww-section bg-light" id="comment">
-        <div class="ww-photo-gallery">
-            <div class="container">
-                <div class="col text-center">
-                    <h2 class="h1 text-center pb-3 ww-title" style="font-family: 'Noto Serif KR', serif;">축하메시지</h2><br>
-                    <div id="comments"></div>
-                    <br>
-                    <div class="row">
-                        <div class="col text-center">
-                            <form id="commentForm" action="/submit-comment" method="POST">
-                                <input type="text" name="comment" id="commentInput" placeholder="메시지를 입력하세요">
-                                <button class="btn btn-primary btn-submit" type="submit">메시지 남기기</button>
-                            </form>
-                        </div>
+<div class="ww-section bg-light" id="comment">
+    <div class="ww-photo-gallery">
+        <div class="container">
+            <div class="col text-center">
+                <h2 class="h1 text-center pb-3 ww-title" style="font-family: 'Noto Serif KR', serif;">축하메시지</h2><br>
+                <div id="comments"></div>
+                <br>
+                <div class="row">
+                    <div class="col text-center">
+                        <form id="commentForm">
+                            <input type="text" name="comment" id="commentInput" placeholder="메시지를 입력하세요">
+                            <button class="btn btn-primary btn-submit" type="submit">메시지 남기기</button>
+                        </form>
                     </div>
                 </div>
             </div>
         </div>
     </div>
-        
+</div>
+
 <script>
-    document.getElementById("commentForm").addEventListener("submit", function(event) {
-        event.preventDefault(); // Prevent the default form submission
+    document.addEventListener("DOMContentLoaded", function() {
+        // Load comments from localStorage when the page loads
+        loadComments();
         
-        var commentInput = document.getElementById("commentInput").value; // Get the value of the input field
-        
-        if (commentInput.trim() !== "") { // Check if the input is not empty
-            var commentElement = document.createElement("p"); // Create a new paragraph element
-            commentElement.textContent = commentInput; // Set the text content of the paragraph
+        // Add event listener for form submission
+        document.getElementById("commentForm").addEventListener("submit", function(event) {
+            event.preventDefault(); // Prevent the default form submission
             
-            document.getElementById("comments").appendChild(commentElement); // Append the paragraph to the comments section
+            var commentInput = document.getElementById("commentInput").value.trim(); // Get the value of the input field
             
-            document.getElementById("commentInput").value = ""; // Clear the input field after submission
-        }
+            if (commentInput !== "") { // Check if the input is not empty
+                addComment(commentInput); // Add the comment to the comments list
+                saveComments(); // Save comments to localStorage
+                document.getElementById("commentInput").value = ""; // Clear the input field after submission
+            }
+        });
     });
+
+    // Function to load comments from localStorage
+    function loadComments() {
+        var comments = JSON.parse(localStorage.getItem("comments")) || [];
+        var commentsDiv = document.getElementById("comments");
+        
+        comments.forEach(function(comment) {
+            var commentElement = document.createElement("p");
+            commentElement.textContent = comment;
+            commentsDiv.appendChild(commentElement);
+        });
+    }
+
+    // Function to add a comment to the comments list
+    function addComment(comment) {
+        var commentElement = document.createElement("p");
+        commentElement.textContent = comment;
+        document.getElementById("comments").appendChild(commentElement);
+    }
+
+    // Function to save comments to localStorage
+    function saveComments() {
+        var comments = [];
+        document.querySelectorAll("#comments p").forEach(function(element) {
+            comments.push(element.textContent);
+        });
+        localStorage.setItem("comments", JSON.stringify(comments));
+    }
 </script>
       </div>
 </div>
